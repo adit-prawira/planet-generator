@@ -18,7 +18,7 @@ public class TerrainFace
     {
         this._shapeGenerator = shapeGenerator;
         this._mesh = mesh;
-        this._resolution = resolution;
+        this._resolution = resolution;      
         
         this._localUp = localUp;
         this._axisA = new Vector3(this._localUp.y, this._localUp.z, this._localUp.x);

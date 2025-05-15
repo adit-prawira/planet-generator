@@ -14,19 +14,13 @@ public class PlanetEditor : Editor
         using (var check = new EditorGUI.ChangeCheckScope())
         {
             base.OnInspectorGUI();
-            if (check.changed)
-            {
-                this._planet.GeneratePlanet();
-            }
-        }
+            if (check.changed) this._planet.GeneratePlanet();
 
-        if (GUILayout.Button("Generate Planet"))
-        {
-            this._planet.GeneratePlanet();
         }
-
+        
         this.DrawSettingsEditor(this._planet.shapeSettings, this._planet.OnShapeSettingsUpdated, ref this._planet.isShapeSettingsFoldout, ref this._shapeEditor);
         this.DrawSettingsEditor(this._planet.colorSettings, this._planet.OnColorSettingsUpdated, ref this._planet.isColorSettingsFoldout, ref this._colorEditor);
+        if (GUILayout.Button("Generate Planet")) this._planet.GeneratePlanet();
     }
 
     void DrawSettingsEditor(Object settings, 
@@ -43,16 +37,12 @@ public class PlanetEditor : Editor
             // Only create editor if the system has to
             CreateCachedEditor(settings, null, ref editor);
             editor.OnInspectorGUI();
-            if (check.changed && onSettingsUpdated!=null)
-            {
-                onSettingsUpdated();
-            }
+            if (check.changed && onSettingsUpdated!=null) onSettingsUpdated();
         }
     }
 
     private void OnEnable()
     {
         this._planet = (Planet)this.target;
-        
     }
 }

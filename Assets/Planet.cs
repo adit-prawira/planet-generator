@@ -11,6 +11,18 @@ public class Planet : MonoBehaviour
     [HideInInspector] public bool isShapeSettingsFoldout;
     [HideInInspector] public bool isColorSettingsFoldout;
 
+    public enum FaceRenderMask
+    {
+        All,
+        Top,
+        Bottom,
+        Left,
+        Right,
+        Front,
+        Back
+    };
+
+    public FaceRenderMask faceRenderMask;
     public bool autoUpdate = true; 
     public ShapeSettings shapeSettings;
     public ColorSettings colorSettings;
@@ -48,7 +60,7 @@ public class Planet : MonoBehaviour
         {
 
             // Only create mesh objects if it does not exist, otherwise skip the loop step
-            if (this._meshFilters[i] == null)
+            if (!this._meshFilters[i])
             {
                 GameObject meshObject = new GameObject("mesh");
                 meshObject.transform.parent = this.transform;
@@ -63,7 +75,8 @@ public class Planet : MonoBehaviour
                 this.resolution, 
                 directions[i]
                 );
-
+            bool renderFace = faceRenderMask == FaceRenderMask.All || (int)faceRenderMask - 1  == i;
+            this._meshFilters[i].gameObject.SetActive(renderFace);
         }
     }
 
@@ -90,9 +103,14 @@ public class Planet : MonoBehaviour
     
     private void GenerateMesh()
     {
-        foreach (TerrainFace face in this._terrainFaces)
+      
+
+        for (int i = 0; i < VerticesSize; i++)
         {
-            face?.ConstructMesh();
+            if (this._meshFilters[i].gameObject.activeSelf)
+            {
+                this._terrainFaces[i].ConstructMesh();
+            }   
         }
     }
 
