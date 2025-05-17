@@ -11,13 +11,12 @@ public class ColorGenerator
    public void UpdateSettings(ColorSettings settings)
    {
       this._settings = settings;
-      if(this._texture == null)this._texture = new Texture2D(TextureResolution, 1);
+      if(!this._texture) this._texture = new Texture2D(TextureResolution, 1);
    }
 
    public void UpdateElevation(MinMax elevationMinMax)
    {
       this._settings.planetMaterial.SetVector(VectorName, new Vector4(elevationMinMax.Min, elevationMinMax.Max));
-      
    }
 
    public void UpdateColors()

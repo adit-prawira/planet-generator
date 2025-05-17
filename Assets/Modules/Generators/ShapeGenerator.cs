@@ -12,11 +12,11 @@ public class ShapeGenerator
    {
       this.shapeSettings = shapeSettings;
       this.noiseFilters = new INoiseFilter[this.shapeSettings.noiseLayers.Length];
-      this.elevationMinMax = new MinMax();
-      for (int i = 0; i < this.shapeSettings.noiseLayers.Length; i++)
+      for (int i = 0; i < noiseFilters.Length; i++)
       {
          this.noiseFilters[i]  = NoiseFilterFactory.CreateNoiseFilter(this.shapeSettings.noiseLayers[i].noiseSettings);
       }
+      this.elevationMinMax = new MinMax();
    }
 
    public Vector3 CalculatePointOnPlanet(Vector3 pointOnUnitSphere)

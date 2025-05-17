@@ -61,7 +61,7 @@ public class Planet : MonoBehaviour
         
         for (int i = 0; i < VerticesSize; i++)
         {
-
+            if (!this._meshFilters?[i]) continue;
             // Only create mesh objects if it does not exist, otherwise skip the loop step
             if (!this._meshFilters[i])
             {
