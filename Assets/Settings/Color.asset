@@ -72,7 +72,7 @@ MonoBehaviour:
     blendAmount: 0.266
   oceanColor:
     serializedVersion: 2
-    key0: {r: 0, g: 0.051294036, b: 0.36862746, a: 1}
+    key0: {r: 0.16153437, g: 0.1783354, b: 0.2830189, a: 1}
     key1: {r: 0.11347453, g: 0.475708, b: 0.9622642, a: 1}
     key2: {r: 0.68296593, g: 0.7830189, b: 0.6685208, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}

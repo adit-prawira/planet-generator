@@ -11,16 +11,7 @@ public class Planet : MonoBehaviour
     [HideInInspector] public bool isShapeSettingsFoldout;
     [HideInInspector] public bool isColorSettingsFoldout;
 
-    public enum FaceRenderMask
-    {
-        All,
-        Top,
-        Bottom,
-        Left,
-        Right,
-        Front,
-        Back
-    };
+    public enum FaceRenderMask { All, Top, Bottom, Left, Right, Front, Back };
 
     public FaceRenderMask faceRenderMask;
     public bool autoUpdate = true; 
@@ -37,6 +28,8 @@ public class Planet : MonoBehaviour
 
     private void Initialize()
     {
+        string planetName = this.gameObject.name ?? "Planet";
+        string meshName = $"{planetName}_Mesh";
         this._shapeGenerator.UpdateSettings(this.shapeSettings);
         this._colorGenerator.UpdateSettings(this.colorSettings);
         
@@ -55,9 +48,8 @@ public class Planet : MonoBehaviour
             // Only create mesh objects if it does not exist, otherwise skip the loop step
             if (!this._meshFilters[i])
             {
-                GameObject meshObject = new GameObject("mesh");
+                GameObject meshObject = new GameObject(meshName);
                 meshObject.transform.parent = this.transform;
-                
                 meshObject.AddComponent<MeshRenderer>();
                 this._meshFilters[i] = meshObject.AddComponent<MeshFilter>();
                 this._meshFilters[i].sharedMesh = new Mesh();
@@ -105,7 +97,6 @@ public class Planet : MonoBehaviour
 
     private void GenerateColor()
     {
-        
         this._colorGenerator.UpdateColors();
         for (int i = 0; i < VerticesSize; i++)
         {
