@@ -32,7 +32,10 @@ public class TerrainFace
         Vector3[] vertices = new Vector3[this._resolution * this._resolution];
         int[] triangles = new int[(this._resolution - 1) * (this._resolution - 1) * 2 * 3];
         int triangleIndex = 0;
-        Vector2[] uv = this._mesh.uv;
+        Vector2[] uv = (this._mesh.uv.Length == vertices.Length)
+            ? this._mesh.uv
+            : new Vector2[vertices.Length];
+        
         for (int y = 0; y < this._resolution; y++)
         {
             for (int x = 0; x < this._resolution; x++)
@@ -46,8 +49,10 @@ public class TerrainFace
                 // thus converting the shapes to be as a sphere
                 Vector3 pointOnUnitSphere = pointOnUnitCube.normalized;
                 vertices[i] = pointOnUnitSphere;
-                vertices[i] = this._shapeGenerator.CalculatePointOnPlanet(pointOnUnitSphere);
-                
+                float unscaledElevation = this._shapeGenerator.CalculateUnscaledElevation(pointOnUnitSphere);
+                vertices[i] = pointOnUnitSphere * this._shapeGenerator.GetScaledElevation(unscaledElevation);
+                uv[i].y = unscaledElevation;
+                    
                 bool isXEdge = x == this._resolution - 1;
                 bool isYEdge = y == this._resolution - 1;
                 bool isEdge =isXEdge || isYEdge;
@@ -69,14 +74,14 @@ public class TerrainFace
         
         this._mesh.Clear();
         this._mesh.vertices = vertices;
-        this._mesh.triangles = triangles;
+        this._mesh.triangles = triangles; 
         this._mesh.RecalculateNormals();
         this._mesh.uv = uv;
     }
 
     public void UpdateUVs(ColorGenerator colorGenerator)
     {
-        Vector2[] uv = new Vector2[this._resolution * this._resolution];
+        Vector2[] uv = this._mesh.uv;
         for (int y = 0; y < this._resolution; y++)
         {
             for (int x = 0; x < this._resolution; x++)
@@ -89,8 +94,7 @@ public class TerrainFace
                 // ensure all vertices to be the same distance to center
                 // thus converting the shapes to be as a sphere
                 Vector3 pointOnUnitSphere = pointOnUnitCube.normalized;
-                uv[i] = new Vector2(colorGenerator.BiomePercentFromPoint(pointOnUnitSphere), 0);
-                
+                uv[i].x = colorGenerator.BiomePercentFromPoint(pointOnUnitSphere);
             }
         }
         this._mesh.uv = uv;

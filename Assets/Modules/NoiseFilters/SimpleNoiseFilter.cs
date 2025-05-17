@@ -23,7 +23,7 @@ public class SimpleNoiseFilter: INoiseFilter
             amplitude *= this._settings.persistence;
         }
 
-        noiseValue = Mathf.Max(0, noiseValue - this._settings.minimumValue);
+        noiseValue = noiseValue - this._settings.minimumValue;
         return noiseValue * this._settings.strength;
     }
 
