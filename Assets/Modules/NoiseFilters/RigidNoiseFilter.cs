@@ -25,12 +25,12 @@ public class RigidNoiseFilter :INoiseFilter
             
             // ensure that weight value to be within 0 <= weight <= 1
             weight = Mathf.Clamp01(v * this._settings.weightMultiplier);
-            noiseValue += v * 0.5f * amplitude;
+            noiseValue += v * amplitude;
             frequency *= this._settings.roughness;
             amplitude *= this._settings.persistence;
         }
 
-        noiseValue = Mathf.Max(0, noiseValue - this._settings.minimumValue);
+        noiseValue = noiseValue - this._settings.minimumValue;
         return noiseValue * this._settings.strength;
     }
 }

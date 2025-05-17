@@ -52,7 +52,6 @@ public class Planet : MonoBehaviour
         
         for (int i = 0; i < VerticesSize; i++)
         {
-            if (!this._meshFilters?[i]) continue;
             // Only create mesh objects if it does not exist, otherwise skip the loop step
             if (!this._meshFilters[i])
             {
@@ -65,12 +64,7 @@ public class Planet : MonoBehaviour
             }
 
             this._meshFilters[i].GetComponent<MeshRenderer>().sharedMaterial = this.colorSettings.planetMaterial;
-            this._terrainFaces[i] = new TerrainFace(
-                this._shapeGenerator,
-                this._meshFilters[i].sharedMesh, 
-                this.resolution, 
-                directions[i]
-                );
+            this._terrainFaces[i] = new TerrainFace(this._shapeGenerator, this._meshFilters[i].sharedMesh, this.resolution, directions[i]);
             bool renderFace = faceRenderMask == FaceRenderMask.All || (int)faceRenderMask - 1  == i;
             this._meshFilters[i].gameObject.SetActive(renderFace);
         }

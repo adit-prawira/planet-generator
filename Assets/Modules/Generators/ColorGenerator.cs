@@ -14,7 +14,7 @@ public class ColorGenerator
       this._settings = settings;
       int numberOfBiomes = this._settings.biomeColorSettings.biomes.Length;
       if(!this._texture || this._texture.height != numberOfBiomes) 
-         this._texture = new Texture2D(TextureResolution, numberOfBiomes);
+         this._texture = new Texture2D(TextureResolution*2, this._settings.biomeColorSettings.biomes.Length, TextureFormat.RGBA32, false);
       this._biomeNoiseFilter = NoiseFilterFactory.CreateNoiseFilter(this._settings.biomeColorSettings.noiseSettings);
    }
 
@@ -26,9 +26,8 @@ public class ColorGenerator
    public float BiomePercentFromPoint(Vector3 pointOfUnitSphere)
    {
       float heightPercent = (pointOfUnitSphere.y + 1) / 2f;
-      heightPercent += (this._biomeNoiseFilter.Evaluate(pointOfUnitSphere) -
-                        this._settings.biomeColorSettings.noiseOffset) *
-                       this._settings.biomeColorSettings.noiseStrength;
+      heightPercent += (this._biomeNoiseFilter.Evaluate(pointOfUnitSphere) - this._settings.biomeColorSettings.noiseOffset) 
+                       * this._settings.biomeColorSettings.noiseStrength;
       float biomeIndex = 0;
       int numberOfBiomes = this._settings.biomeColorSettings.biomes.Length;
       float blendRange = this._settings.biomeColorSettings.blendAmount / 2f + .001f;
@@ -54,9 +53,12 @@ public class ColorGenerator
       int colorIndex = 0;
       
       foreach (var biome in this._settings.biomeColorSettings.biomes){
-         for (int i = 0; i < TextureResolution; i++)
+         for (int i = 0; i < TextureResolution * 2; i++)
          {
-            Color gradientColor = biome.gradient.Evaluate(i / (TextureResolution - 1f));
+            // if i < texture resolution sample from ocean gradient otherwise from biome gradient
+            Color gradientColor = i < TextureResolution 
+               ? this._settings.oceanColor.Evaluate(i / (TextureResolution - 1f))
+               : biome.gradient.Evaluate((i - TextureResolution) / (TextureResolution - 1f));
             Color tintColor = biome.tint;
             colors[colorIndex] = gradientColor * (1 - biome.tintPercent) + tintColor * biome.tintPercent;
             colorIndex++;
