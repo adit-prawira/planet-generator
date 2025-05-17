@@ -12,4 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c46d09137fb04bd89ed145b921f1ac5, type: 3}
   m_Name: Color
   m_EditorClassIdentifier: 
-  planetColor: {r: 0.7089266, g: 0.7595186, b: 0.8396226, a: 0}
+  planetMaterial: {fileID: 2100000, guid: 817db0b4296b74b28852eb666c1260c5, type: 2}
+  biomeColorSettings:
+    biomes: []
+    noiseSettings:
+      filterType: 0
+      simpleNoiseSettings:
+        strength: -31.87
+        centre: {x: -13.64, y: 0, z: 0}
+        numberOfLayers: 5
+        persistence: -3.8
+        baseRoughness: 1
+        roughness: 2
+        minimumValue: -2.44
+      rigidNoiseSettings:
+        strength: 1
+        centre: {x: 0, y: 0, z: 0}
+        numberOfLayers: 1
+        persistence: 0.5
+        baseRoughness: 1
+        roughness: 2
+        minimumValue: 0
+        weightMultiplier: 0.8
+    noiseOffset: 7.44
+    noiseStrength: 4.02
+    blendAmount: 0.266
