@@ -48,16 +48,7 @@ public class Planet : MonoBehaviour
         if (!hasMeshFilters) this._meshFilters = new MeshFilter[VerticesSize];
 
         this._terrainFaces = new TerrainFace[VerticesSize];
-        Vector3[] directions =
-        {
-
-            Vector3.up,
-            Vector3.down,
-            Vector3.left,
-            Vector3.right,
-            Vector3.forward,
-            Vector3.back
-        };
+        Vector3[] directions = { Vector3.up, Vector3.down, Vector3.left, Vector3.right, Vector3.forward, Vector3.back };
         
         for (int i = 0; i < VerticesSize; i++)
         {
@@ -115,13 +106,20 @@ public class Planet : MonoBehaviour
                 this._terrainFaces[i].ConstructMesh();
             }   
         }
-        
         this._colorGenerator.UpdateElevation(this._shapeGenerator.elevationMinMax);
     }
 
     private void GenerateColor()
     {
+        
         this._colorGenerator.UpdateColors();
+        for (int i = 0; i < VerticesSize; i++)
+        {
+            if (this._meshFilters[i].gameObject.activeSelf)
+            {
+                this._terrainFaces[i].UpdateUVs(this._colorGenerator);
+            }   
+        }
     }
 
 }

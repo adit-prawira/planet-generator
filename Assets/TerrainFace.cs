@@ -32,7 +32,7 @@ public class TerrainFace
         Vector3[] vertices = new Vector3[this._resolution * this._resolution];
         int[] triangles = new int[(this._resolution - 1) * (this._resolution - 1) * 2 * 3];
         int triangleIndex = 0;
-        
+        Vector2[] uv = this._mesh.uv;
         for (int y = 0; y < this._resolution; y++)
         {
             for (int x = 0; x < this._resolution; x++)
@@ -71,5 +71,28 @@ public class TerrainFace
         this._mesh.vertices = vertices;
         this._mesh.triangles = triangles;
         this._mesh.RecalculateNormals();
+        this._mesh.uv = uv;
+    }
+
+    public void UpdateUVs(ColorGenerator colorGenerator)
+    {
+        Vector2[] uv = new Vector2[this._resolution * this._resolution];
+        for (int y = 0; y < this._resolution; y++)
+        {
+            for (int x = 0; x < this._resolution; x++)
+            {
+                int i = x + y * this._resolution;
+                Vector2 percent = new Vector2(x, y) / (this._resolution - 1);
+                Vector3 pointOnUnitCube = this._localUp
+                                          + ((percent.x - .5f) * 2 * this._axisA)
+                                          + ((percent.y - .5f) * 2 * this._axisB);
+                // ensure all vertices to be the same distance to center
+                // thus converting the shapes to be as a sphere
+                Vector3 pointOnUnitSphere = pointOnUnitCube.normalized;
+                uv[i] = new Vector2(colorGenerator.BiomePercentFromPoint(pointOnUnitSphere), 0);
+                
+            }
+        }
+        this._mesh.uv = uv;
     }
 }
