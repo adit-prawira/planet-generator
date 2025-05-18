@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a13f679bfe554353a682370488e7fab, type: 3}
+  m_Name: AndromedaShapeSettings
+  m_EditorClassIdentifier: 
+  planetRadius: 20
+  noiseLayers:
+  - noiseSettings:
+      filterType: 1
+      simpleNoiseSettings:
+        strength: 0.11
+        centre: {x: 0, y: 0, z: 0}
+        numberOfLayers: 0
+        persistence: 0
+        baseRoughness: 0
+        roughness: 0
+        minimumValue: 0
+      rigidNoiseSettings:
+        strength: 0.54
+        centre: {x: 4.08, y: 1.55, z: 0}
+        numberOfLayers: 3
+        persistence: 0.23
+        baseRoughness: 0.21
+        roughness: 8.39
+        minimumValue: 0.92
+        weightMultiplier: 9.34
+    enabled: 1
+    isFirstLayerAsMask: 1
+  - noiseSettings:
+      filterType: 0
+      simpleNoiseSettings:
+        strength: 0
+        centre: {x: 0.55, y: 0, z: 0}
+        numberOfLayers: 2
+        persistence: 0
+        baseRoughness: 1.23
+        roughness: 0.84
+        minimumValue: 1.74
+      rigidNoiseSettings:
+        strength: 0.83
+        centre: {x: 1.98, y: 1.55, z: 0}
+        numberOfLayers: 3
+        persistence: 0.51
+        baseRoughness: 0.39
+        roughness: 3.02
+        minimumValue: 0.86
+        weightMultiplier: 1.29
+    enabled: 1
+    isFirstLayerAsMask: 0
