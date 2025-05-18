@@ -25,6 +25,12 @@ Here is is the example of the current solar systems within this repository's uni
 The following image below, shows the current state of the Unity project
 ![alt text](./GithubAsset/unity_planet_editor.png)
 
+## Short Demo
+
+A short demo video to demonstrate how planet editor works
+
+![til](./GithubAsset/planet_edit_demo.gif)
+
 ### Unity dependencies
 
 - Real Stars Skybox
