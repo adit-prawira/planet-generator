@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a13f679bfe554353a682370488e7fab, type: 3}
   m_Name: ChronosShapeSettings
   m_EditorClassIdentifier: 
-  planetRadius: 50
+  planetRadius: 60
   noiseLayers:
   - noiseSettings:
       filterType: 1
